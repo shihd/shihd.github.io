@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://shihd.github.io/"/>
-  <updated>2016-11-03T03:17:06.000Z</updated>
+  <updated>2016-11-03T03:21:19.000Z</updated>
   <id>http://shihd.github.io/</id>
   
   <author>
@@ -16,11 +16,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Docker入门及基础操作</title>
-    <link href="http://shihd.github.io/2016/11/03/%E6%8A%80%E6%9C%AF%E8%B5%84%E6%96%99%E2%80%94%E2%80%94Docker%E5%85%A5%E9%97%A8%E5%8F%8A%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/"/>
-    <id>http://shihd.github.io/2016/11/03/技术资料——Docker入门及基础操作/</id>
-    <published>2016-11-03T02:40:23.000Z</published>
-    <updated>2016-11-03T03:17:06.000Z</updated>
+    <title></title>
+    <link href="http://shihd.github.io/2016/08/12/%E6%8A%80%E6%9C%AF%E8%B5%84%E6%96%99%E2%80%94%E2%80%94Docker%E5%85%A5%E9%97%A8%E5%8F%8A%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/"/>
+    <id>http://shihd.github.io/2016/08/12/技术资料——Docker入门及基础操作/</id>
+    <published>2016-08-12T15:15:23.000Z</published>
+    <updated>2016-11-03T03:21:19.000Z</updated>
     
     <content type="html"><![CDATA[<p><img src="https://www.docker.com/sites/default/files/moby.svg" alt=""></p>
 <h1 id="Docker是什么？"><a href="#Docker是什么？" class="headerlink" title="Docker是什么？"></a>Docker是什么？</h1><p>Docker的中文本意是码头工人，用于搬运货柜。<a href="https://www.docker.com/" target="_blank" rel="external">Docker官网</a>给出的解释是Docker是世界领先的软件货柜运输平台。通俗来说就是Docker就是一个可以将软件打包在一个标准的“货柜”里，并可以轻松迁移的平台。</p>
@@ -39,7 +39,7 @@
 <h1 id="Docker基础操作"><a href="#Docker基础操作" class="headerlink" title="Docker基础操作"></a>Docker基础操作</h1><h2 id="搜索镜像"><a href="#搜索镜像" class="headerlink" title="搜索镜像"></a>搜索镜像</h2><p>作为初学者和实用主义者，建议先学习使用别人的镜像，即方便又简单，网上有很多牛人制作好的镜像文件，我只需找到它们直接使用即可，可大大减少我们搭建环境的时间。</p>
 <p><strong>方法一：访问Docker Hub网站搜索</strong></p>
 <ol>
-<li><p>首先通过浏览器访问<a href="https://thumbnail0.baidupcs.com/thumbnail/ad11a6ace6b0c00d2eae74b91ff43ff6?fid=84203906-250528-5013268691198&amp;time=1478142000&amp;rt=sh&amp;sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-YDAwZIoH8nGaUgnsikpr4yMxGqk%3D&amp;expires=8h&amp;chkv=0&amp;chkbd=0&amp;chkpc=&amp;dp-logid=7130836332173189277&amp;dp-callid=0&amp;size=c710_u400&amp;quality=100" target="_blank" rel="external">Docker Hub网站</a></p>
+<li><p>首先通过浏览器访问<a href="https://hub.docker.com/" target="_blank" rel="external">Docker Hub网站</a><br><img src="https://thumbnail0.baidupcs.com/thumbnail/ad11a6ace6b0c00d2eae74b91ff43ff6?fid=84203906-250528-5013268691198&amp;time=1478142000&amp;rt=sh&amp;sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-YDAwZIoH8nGaUgnsikpr4yMxGqk%3D&amp;expires=8h&amp;chkv=0&amp;chkbd=0&amp;chkpc=&amp;dp-logid=7131134638033595429&amp;dp-callid=0&amp;size=c710_u400&amp;quality=100" alt=""></p>
 </li>
 <li><p>在右上角的搜索栏中输入要搜做的镜像关键字，如：tomcat，返回如下页面：<br><img src="https://thumbnail0.baidupcs.com/thumbnail/f0936a29ec7f652e08f98e2bcf2bea97?fid=84203906-250528-620365329349745&amp;time=1478142000&amp;rt=sh&amp;sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-u7CmE%2Bs3M8PMpi8VCMDNyD5sMLI%3D&amp;expires=8h&amp;chkv=0&amp;chkbd=0&amp;chkpc=&amp;dp-logid=7130867337864461724&amp;dp-callid=0&amp;size=c710_u400&amp;quality=100" alt=""></p>
 </li>
@@ -83,8 +83,6 @@
 &lt;h1 id=&quot;Docker是什么？&quot;&gt;&lt;a href=&quot;#Docker是什么？&quot; class=&quot;headerlink&quot; t
     
     </summary>
-    
-      <category term="技术资料" scheme="http://shihd.github.io/categories/%E6%8A%80%E6%9C%AF%E8%B5%84%E6%96%99/"/>
     
     
   </entry>

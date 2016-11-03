@@ -4,7 +4,7 @@
   
     
     <entry>
-      <title><![CDATA[Docker入门及基础操作]]></title>
+      <title><![CDATA[技术资料——Docker入门及基础操作]]></title>
       <url>http://shihd.github.io/2016/11/03/%E6%8A%80%E6%9C%AF%E8%B5%84%E6%96%99%E2%80%94%E2%80%94Docker%E5%85%A5%E9%97%A8%E5%8F%8A%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/</url>
       <content type="html"><![CDATA[<p><img src="https://www.docker.com/sites/default/files/moby.svg" alt=""></p>
 <h1 id="Docker是什么？"><a href="#Docker是什么？" class="headerlink" title="Docker是什么？"></a>Docker是什么？</h1><p>Docker的中文本意是码头工人，用于搬运货柜。<a href="https://www.docker.com/" target="_blank" rel="external">Docker官网</a>给出的解释是Docker是世界领先的软件货柜运输平台。通俗来说就是Docker就是一个可以将软件打包在一个标准的“货柜”里，并可以轻松迁移的平台。</p>

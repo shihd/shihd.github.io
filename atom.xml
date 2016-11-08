@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://shihd.github.io/"/>
-  <updated>2016-11-05T06:44:03.000Z</updated>
+  <updated>2016-11-08T09:01:29.000Z</updated>
   <id>http://shihd.github.io/</id>
   
   <author>
@@ -14,6 +14,81 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>技术资料——Maven入门及基础使用介绍</title>
+    <link href="http://shihd.github.io/2016/11/08/%E6%8A%80%E6%9C%AF%E8%B5%84%E6%96%99%E2%80%94%E2%80%94Maven%E5%85%A5%E9%97%A8%E5%8F%8A%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8%E4%BB%8B%E7%BB%8D/"/>
+    <id>http://shihd.github.io/2016/11/08/技术资料——Maven入门及基础使用介绍/</id>
+    <published>2016-11-08T08:59:38.000Z</published>
+    <updated>2016-11-08T09:01:29.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="https://maven.apache.org/images/maven-logo-black-on-white.png" alt=""></p>
+<h1 id="Maven是什么"><a href="#Maven是什么" class="headerlink" title="Maven是什么"></a>Maven是什么</h1><p>Maven的中文本意是“专家、内行”的意思。<br>Apache Maven是一个主要针对Java的项目管理及综合工具，由Apache软件基金会所提供。Maven提供了开发人员构建一个完整的生命周期框架。开发团队可以自动完成项目的基础工具建设，Maven使用标准的目录结构和默认构建生命周期。<br>在多个开发团队环境时，Maven可以设置按标准在非常短的时间里完成配置工作。由于大部分项目的设置都很简单，并且可重复使用，Maven让开发人员的工作更轻松，同时创建报表，检查，构建和测试自动化设置。<br>Maven提供了开发人员的方式来管理：</p>
+<ul>
+<li>Builds</li>
+<li>Documentation</li>
+<li>Reporting</li>
+<li>Dependencies</li>
+<li>SCMs</li>
+<li>Releases</li>
+<li>Distribution</li>
+<li>mailing list<br>概括地说，Maven简化和标准化项目建设过程。处理编译，分配，文档，团队协作和其他任务的无缝连接。 Maven增加可重用性并负责建立相关的任务。 </li>
+</ul>
+<h1 id="Maven有什么作用"><a href="#Maven有什么作用" class="headerlink" title="Maven有什么作用"></a>Maven有什么作用</h1><ol>
+<li>依赖管理<br>减少对包的重复存储，最大限度的降低代码包大小</li>
+<li>插件<br>降低工作量，自动化构建</li>
+<li>聚合和继承<br>降低包的冲突及重复引用</li>
+</ol>
+<h1 id="Maven安装"><a href="#Maven安装" class="headerlink" title="Maven安装"></a>Maven安装</h1><p>请参见<a href="https://maven.apache.org/install.html" target="_blank" rel="external">Maven官网-Install</a><br><em>注：在安装前需确认jdk环境已经安装配置完成。绝大多数IDE安装包中已集成Maven插件，这里就不介绍安装。</em><br><em>注：默认情况下maven的本地仓库会存放在“～／.m2/“目录下。</em></p>
+<h1 id="Maven项目结构"><a href="#Maven项目结构" class="headerlink" title="Maven项目结构"></a>Maven项目结构</h1><p><img src="https://raw.githubusercontent.com/shihd/blogpic/master/Maven%E5%85%A5%E9%97%A8%E5%8F%8A%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/maven_project_arche.png" alt=""><br>上图是一个Maven项目目录结构，<br>“pom.xml”是maven主配置文件“项目对象模型”<br>“src／main／java”是项目的源码目录，所有java源码需要在此目录中<br>“src／main／resources”是项目的资源目录，所有配置资源需要在此目录中<br>“src/test/java“是测试目录，所有的测试代码需要放在此目录中<br>”target“为目标目录，编译及生成好的文件在此目录中，该目录由maven创建及管理，无需手工添加</p>
+<h1 id="常用maven命令"><a href="#常用maven命令" class="headerlink" title="常用maven命令"></a>常用maven命令</h1><table>
+<thead>
+<tr>
+<th style="text-align:left">命令表达式</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>mvn clean</code></td>
+<td style="text-align:left">清除上次编译及生成文件</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>mvn compile</code></td>
+<td style="text-align:left">对项目进行编译</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>mvn test</code></td>
+<td style="text-align:left">执行全部测试用例</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>mvn package</code></td>
+<td style="text-align:left">对项目进行打包</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>mvn install</code></td>
+<td style="text-align:left">对项目进行打包并安装到本地仓库</td>
+</tr>
+</tbody>
+</table>
+<p><em>注：maven的命令远远不止文中列出的，根据maven的生命周期及插件还有很多命令，可以通过访问官网查询，本文仅仅列出最基础最常用的命令</em></p>
+<h1 id="pom编写基础"><a href="#pom编写基础" class="headerlink" title="pom编写基础"></a>pom编写基础</h1><p><img src="https://raw.githubusercontent.com/shihd/blogpic/master/Maven%E5%85%A5%E9%97%A8%E5%8F%8A%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/pom_basic.png" alt=""><br><code>&lt;modal version&gt;</code>值为4.0.0，使用maven3需要如此设置<br><code>&lt;grounpId&gt;</code>为组id，标识所属的组，一般java源码包命名参照groupId<br><code>&lt;artifactId&gt;</code>为构件id，一般为本项目名称<br><code>&lt;version&gt;</code>为版本号<br><code>&lt;type&gt;</code>为该项目打包类型<br><code>&lt;dependencies&gt;</code>为依赖标签，该标签下配置依赖<br>每个依赖需要用<code>&lt;dependency&gt;</code>标签包围<br>其中<code>&lt;grounpId&gt;</code>为需要依赖的构件包的组id<br>其中<code>&lt;artifactId&gt;</code>为需要依赖的构件的id<br>其中<code>&lt;version&gt;</code>为需要依赖的构件的版本号</p>
+<h1 id="构件依赖信息查询"><a href="#构件依赖信息查询" class="headerlink" title="构件依赖信息查询"></a>构件依赖信息查询</h1><p>pom中引用的构件信息可以通过<a href="https://mvnrepository.com/" target="_blank" rel="external">Maven仓库</a>查询。<br><img src="https://github.com/shihd/blogpic/blob/master/Maven%E5%85%A5%E9%97%A8%E5%8F%8A%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/Maven_Repository.png?raw=true" alt=""><br>在搜索框输入需要查询构件进行查询，如“spring jdbc”<br><img src="https://github.com/shihd/blogpic/blob/master/Maven%E5%85%A5%E9%97%A8%E5%8F%8A%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/Maven_Repository_search.png?raw=true" alt=""><br>选择所需要的构建查询详细，<br><img src="https://github.com/shihd/blogpic/blob/master/Maven%E5%85%A5%E9%97%A8%E5%8F%8A%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/Maven_Repository_detail.png?raw=true" alt=""><br>选择需要引用的版本进入<br><img src="https://github.com/shihd/blogpic/blob/master/Maven%E5%85%A5%E9%97%A8%E5%8F%8A%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/Maven_Repository_version.png?raw=true" alt=""><br>在页面里查看maven配置<br><img src="https://github.com/shihd/blogpic/blob/master/Maven%E5%85%A5%E9%97%A8%E5%8F%8A%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/Maven_Repository_dependency.png?raw=true" alt=""></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;https://maven.apache.org/images/maven-logo-black-on-white.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;h1 id=&quot;Maven是什么&quot;&gt;&lt;a href=&quot;#Maven是什么&quot; class=&quot;headerl
+    
+    </summary>
+    
+      <category term="技术资料" scheme="http://shihd.github.io/categories/%E6%8A%80%E6%9C%AF%E8%B5%84%E6%96%99/"/>
+    
+    
+      <category term="Maven" scheme="http://shihd.github.io/tags/Maven/"/>
+    
+  </entry>
   
   <entry>
     <title>技术资料——Docker入门及基础操作</title>

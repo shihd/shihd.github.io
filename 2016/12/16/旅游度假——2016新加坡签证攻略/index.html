@@ -3,20 +3,26 @@
 <head>
     <meta charset="utf-8">
     
-    <title>技术资料——Docker入门及基础操作 | Explorer</title>
+    <title>2016新加坡签证攻略 | Explorer</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="Docker是什么？Docker的中文本意是码头工人，用于搬运货柜。Docker官网给出的解释是Docker是世界领先的软件货柜运输平台。通俗来说就是Docker就是一个可以将软件打包在一个标准的“货柜”里，并可以轻松迁移的平台。">
+    <meta name="description" content="开场白2017年春节就快来临，准备在春节期间带着家人出去度假，由于孩子还小才4岁，且又是冬季，所以想去暖和且适合孩子玩的地方。和老婆一番讨论后，决定去新加坡旅行。在途牛旅游网上订了机票及酒店，并且定购了签证代办服务。
+经办商途牛旅游网
+花费时间材料寄送后7至10个工作日完成">
 <meta property="og:type" content="article">
-<meta property="og:title" content="技术资料——Docker入门及基础操作">
-<meta property="og:url" content="http://shihd.github.io/2016/11/03/技术资料——Docker入门及基础操作/index.html">
+<meta property="og:title" content="2016新加坡签证攻略">
+<meta property="og:url" content="http://shihd.github.io/2016/12/16/旅游度假——2016新加坡签证攻略/index.html">
 <meta property="og:site_name" content="Explorer">
-<meta property="og:description" content="Docker是什么？Docker的中文本意是码头工人，用于搬运货柜。Docker官网给出的解释是Docker是世界领先的软件货柜运输平台。通俗来说就是Docker就是一个可以将软件打包在一个标准的“货柜”里，并可以轻松迁移的平台。">
-<meta property="og:image" content="https://blog.birkhoff.me/content/images/2016/07/automated-deploying-containers-after-push.png">
-<meta property="og:updated_time" content="2016-11-10T06:49:27.000Z">
+<meta property="og:description" content="开场白2017年春节就快来临，准备在春节期间带着家人出去度假，由于孩子还小才4岁，且又是冬季，所以想去暖和且适合孩子玩的地方。和老婆一番讨论后，决定去新加坡旅行。在途牛旅游网上订了机票及酒店，并且定购了签证代办服务。
+经办商途牛旅游网
+花费时间材料寄送后7至10个工作日完成">
+<meta property="og:image" content="data:image/jpeg;base64,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">
+<meta property="og:updated_time" content="2016-12-16T08:11:33.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="技术资料——Docker入门及基础操作">
-<meta name="twitter:description" content="Docker是什么？Docker的中文本意是码头工人，用于搬运货柜。Docker官网给出的解释是Docker是世界领先的软件货柜运输平台。通俗来说就是Docker就是一个可以将软件打包在一个标准的“货柜”里，并可以轻松迁移的平台。">
-<meta name="twitter:image" content="https://blog.birkhoff.me/content/images/2016/07/automated-deploying-containers-after-push.png">
+<meta name="twitter:title" content="2016新加坡签证攻略">
+<meta name="twitter:description" content="开场白2017年春节就快来临，准备在春节期间带着家人出去度假，由于孩子还小才4岁，且又是冬季，所以想去暖和且适合孩子玩的地方。和老婆一番讨论后，决定去新加坡旅行。在途牛旅游网上订了机票及酒店，并且定购了签证代办服务。
+经办商途牛旅游网
+花费时间材料寄送后7至10个工作日完成">
+<meta name="twitter:image" content="data:image/jpeg;base64,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">
     
 
     
@@ -193,7 +199,7 @@
 </aside>
 
             
-            <section id="main"><article id="post-技术资料——Docker入门及基础操作" class="article article-type-post" itemscope itemprop="blogPost">
+            <section id="main"><article id="post-旅游度假——2016新加坡签证攻略" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -201,7 +207,7 @@
                 
     
         <h1 class="article-title" itemprop="name">
-            技术资料——Docker入门及基础操作
+            2016新加坡签证攻略
         </h1>
     
 
@@ -210,8 +216,8 @@
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2016/11/03/技术资料——Docker入门及基础操作/">
-            <time datetime="2016-11-03T03:27:10.000Z" itemprop="datePublished">2016-11-03</time>
+        <a href="/2016/12/16/旅游度假——2016新加坡签证攻略/">
+            <time datetime="2016-12-16T08:08:03.000Z" itemprop="datePublished">2016-12-16</time>
         </a>
     </div>
 
@@ -219,13 +225,13 @@
                         
     <div class="article-category">
     	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/技术资料/">技术资料</a>
+        <a class="article-category-link" href="/categories/旅游度假/">旅游度假</a>
     </div>
 
                         
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Docker/">Docker</a>
+        <a class="tag-link" href="/tags/新加坡-签证/">新加坡 签证</a>
     </div>
 
                     </div>
@@ -236,59 +242,34 @@
         <div class="article-entry" itemprop="articleBody">
         
             
-            <p><img src="https://blog.birkhoff.me/content/images/2016/07/automated-deploying-containers-after-push.png" alt=""></p>
-<h1 id="Docker是什么？"><a href="#Docker是什么？" class="headerlink" title="Docker是什么？"></a>Docker是什么？</h1><p>Docker的中文本意是码头工人，用于搬运货柜。<a href="https://www.docker.com/" target="_blank" rel="external">Docker官网</a>给出的解释是Docker是世界领先的软件货柜运输平台。通俗来说就是Docker就是一个可以将软件打包在一个标准的“货柜”里，并可以轻松迁移的平台。<br><a id="more"></a></p>
-<h1 id="Docker有什么作用？"><a href="#Docker有什么作用？" class="headerlink" title="Docker有什么作用？"></a>Docker有什么作用？</h1><p>Docker容器打包软件到一个包含了所有运行所需环境（代码、运行时状态、系统工具、系统库——任何可以被安装在服务器上的环境）的文件系统里，这样软件无论被迁移到哪里都是同样的运行环境。<br>通俗来说就是开发环境如果没有问题，用Docker打包成容器在服务器上运行，至少不会遇到环境问题。<br>还有像我这样使用Mac开发的程序员，如果需要开发oracle数据库，本地是无法安装oracle的，可以通过docker运行一个oracle镜像。</p>
-<h1 id="Docker的特点"><a href="#Docker的特点" class="headerlink" title="Docker的特点"></a>Docker的特点</h1><p><strong>轻量性</strong><br>运行在一台机器上的容器共享其操作系统内核，它们启动使用更少的内存。Docker的镜像文件可以通过分层的文件系统及共享的公共文件创建（说白了就是Docker的镜像文件可以在其他镜像基础上创建并且还可以共享使用其他镜像或操作系统的文件，这样镜像文件就很小），节省磁盘空间并提高下载效率。</p>
-<p><strong>开放性</strong><br>Docker容器基于开放标准，使容器能够在所有的主流Linux及windows或者其他设备的顶层运行。</p>
-<p><strong>默认安全性</strong><br>容器隔离彼此和基础架构应用，同时为应用程序提供了额外的保护层。</p>
-<h1 id="Docker容器与虚拟机比较"><a href="#Docker容器与虚拟机比较" class="headerlink" title="Docker容器与虚拟机比较"></a>Docker容器与虚拟机比较</h1><p><strong>虚拟机</strong><br><img src="https://www.docker.com/sites/default/files/WhatIsDocker_2_VMs_0-2_2.png" alt=""><br>虚拟机系统包含应用程序、必要的二进制文件和库和一个完整的客体操作系统，所有这些加起来至少几十GB。</p>
-<p><strong>Docker容器</strong><br><img src="https://www.docker.com/sites/default/files/WhatIsDocker_3_Containers_2_0.png" alt=""><br>Docker容器包含应用程序及其所需依赖，在主机操作系统上运行时，共享主机操作系统内核，每个容器都作为独立进程运行。Docker容器不限制设备型号等，可以运行在所有的设备上。</p>
-<h1 id="Docker安装"><a href="#Docker安装" class="headerlink" title="Docker安装"></a>Docker安装</h1><p><strong>Mac上安装</strong><br>请参阅<a href="https://www.docker.com/products/docker#/mac" target="_blank" rel="external">Docker官网-Docker for Mac</a></p>
-<p><strong>Windows上安装</strong><br>请参阅<a href="https://www.docker.com/products/docker#/windows" target="_blank" rel="external">Docker官网-Docker for Windows</a></p>
-<p><strong>Windows Server上安装</strong><br>请参阅<a href="https://www.docker.com/products/docker#/windows-server" target="_blank" rel="external">Docker官网-Docker for Windows Server</a></p>
-<p><strong>Linux上安装</strong><br>请参阅<a href="https://www.docker.com/products/docker#/linux" target="_blank" rel="external">Docker官网-Docker for Linux</a></p>
-<p><strong>AWS上安装</strong><br>请参阅<a href="https://www.docker.com/products/docker#/AWS" target="_blank" rel="external">Docker官网-Docker for AWS</a></p>
-<p><strong>AZURE上安装</strong><br>请参阅<a href="https://www.docker.com/products/docker#/azure" target="_blank" rel="external">Docker官网-Docker for AZURE</a></p>
-<h1 id="Docker基础操作"><a href="#Docker基础操作" class="headerlink" title="Docker基础操作"></a>Docker基础操作</h1><h2 id="搜索镜像"><a href="#搜索镜像" class="headerlink" title="搜索镜像"></a>搜索镜像</h2><p>作为初学者和实用主义者，建议先学习使用别人的镜像，即方便又简单，网上有很多牛人制作好的镜像文件，我只需找到它们直接使用即可，可大大减少我们搭建环境的时间。</p>
-<p><strong>方法一：访问Docker Hub网站搜索</strong></p>
+            <h2 id="开场白"><a href="#开场白" class="headerlink" title="开场白"></a>开场白</h2><p>2017年春节就快来临，准备在春节期间带着家人出去度假，由于孩子还小才4岁，且又是冬季，所以想去暖和且适合孩子玩的地方。和老婆一番讨论后，决定去新加坡旅行。在途牛旅游网上订了机票及酒店，并且定购了签证代办服务。</p>
+<h2 id="经办商"><a href="#经办商" class="headerlink" title="经办商"></a>经办商</h2><p>途牛旅游网</p>
+<h2 id="花费时间"><a href="#花费时间" class="headerlink" title="花费时间"></a>花费时间</h2><p>材料寄送后7至10个工作日完成<br><a id="more"></a></p>
+<h2 id="准备材料清单"><a href="#准备材料清单" class="headerlink" title="准备材料清单"></a>准备材料清单</h2><p><strong>成人：</strong></p>
 <ol>
-<li><p>首先通过浏览器访问<a href="https://hub.docker.com/" target="_blank" rel="external">Docker Hub网站</a><br><img src="https://github.com/shihd/blogpic/blob/master/Docker%E5%85%A5%E9%97%A8%E5%8F%8A%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/hub.docker.com.png?raw=true" alt=""></p>
-</li>
-<li><p>在右上角的搜索栏中输入要搜做的镜像关键字，如：tomcat，返回如下页面：<br><img src="https://github.com/shihd/blogpic/blob/master/Docker%E5%85%A5%E9%97%A8%E5%8F%8A%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/Search_tomcat_Docker%20Hub.png?raw=true" alt=""></p>
-</li>
-<li><p>选择需要使用镜像，如：<br><img src="https://github.com/shihd/blogpic/blob/master/Docker%E5%85%A5%E9%97%A8%E5%8F%8A%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/tomcat_Docker%20Hub.png?raw=true" alt=""></p>
-</li>
-<li><p>查看镜像详细<br><img src="https://github.com/shihd/blogpic/blob/master/Docker%E5%85%A5%E9%97%A8%E5%8F%8A%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/tomcat_detail_Docker%20Hub.png?raw=true" alt=""></p>
-</li>
+<li>户口本复印件<strong>全本</strong></li>
+<li>身份证复印件</li>
+<li>护照原件（需要寄送盖章）</li>
+<li>在职证明原件（若无工作，则需提供银行开具的冻结3个月3万元证明原件）</li>
+<li>3个月内近照照片白底2寸2张</li>
+<li>申请表原件（中文及英文一共两份）</li>
+<li>已婚者提供结婚证复印件</li>
+<li>退休者提供退休证复印件或者退休证明</li>
 </ol>
-<p><strong>方法二：通过命令行搜索</strong><br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$ </span>docker search tomcat</div></pre></td></tr></table></figure></p>
-<p><img src="https://github.com/shihd/blogpic/blob/master/Docker%E5%85%A5%E9%97%A8%E5%8F%8A%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/terminal_dockersearch.png?raw=true" alt=""></p>
-<h2 id="下载镜像"><a href="#下载镜像" class="headerlink" title="下载镜像"></a>下载镜像</h2><p>在命令行模式下键入以下命令<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$ </span>docker pull tomcat</div></pre></td></tr></table></figure></p>
-<p>其中“tomcat”是镜像名（name)，该命令可以在Docker Hub官网上搜索到的镜像详细中查看到<br><img src="https://github.com/shihd/blogpic/blob/master/Docker%E5%85%A5%E9%97%A8%E5%8F%8A%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/tomcat_pull_Docker%20Hub.png?raw=true" alt=""></p>
-<h2 id="查看本地镜像列表"><a href="#查看本地镜像列表" class="headerlink" title="查看本地镜像列表"></a>查看本地镜像列表</h2><p>在命令行模式下键入以下命令<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$ </span>docker images</div></pre></td></tr></table></figure></p>
-<p><img src="https://github.com/shihd/blogpic/blob/master/Docker%E5%85%A5%E9%97%A8%E5%8F%8A%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/docker_images.png?raw=true" alt=""><br>其中“image id”为镜像编号</p>
-<h2 id="删除本地镜像"><a href="#删除本地镜像" class="headerlink" title="删除本地镜像"></a>删除本地镜像</h2><p>在命令行模式下键入以下命令<br><figure class="highlight accesslog"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ docker rmi <span class="string">[image id]</span></div></pre></td></tr></table></figure></p>
-<p>其中“[image id]”替换为具体的镜像“image id”<br>镜像删除时不能有该镜像的容器存在，无论是运行中的还是停止的</p>
-<h2 id="启动镜像成容器"><a href="#启动镜像成容器" class="headerlink" title="启动镜像成容器"></a>启动镜像成容器</h2><p>在命令行模式下键入以下命令<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ docker <span class="built_in">run</span> -<span class="keyword">it</span> <span class="comment">--rm -p 8888:8080 tomcat:latest</span></div></pre></td></tr></table></figure></p>
-<p>其中“-it”代表开启交互功能，即容器内tomcat启动日志你将能看到。<br>其中“—rm”代表当启动的容器停止后自动删除该容器（不是镜像哦）。<br>其中“-p 8888:8080”代表将容器中的8080端口映射到本地机器的8888端口上，即我们可以通过localhost:8888端口访问到tomcat，甚至我可以改变本地端口来启动多个tomcat容器。<br>最后的“tomcat:latest”代表启动的容器名称及其版本标签。<br>还有很多其他的docker run的参数请查看<a href="https://docs.docker.com/engine/reference/commandline/run/" target="_blank" rel="external">docker官网-文档-run</a><br>该条启动命令可以在Docker Hub上该镜像的详细说明中查看，其中会有多种启动方式说明<br><img src="https://github.com/shihd/blogpic/blob/master/Docker%E5%85%A5%E9%97%A8%E5%8F%8A%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/docker_run_Docker%20Hub.png?raw=true" alt=""></p>
-<h2 id="查看运行中的容器"><a href="#查看运行中的容器" class="headerlink" title="查看运行中的容器"></a>查看运行中的容器</h2><p>在命令行模式下键入以下命令<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$ </span>docker ps</div></pre></td></tr></table></figure></p>
-<p><img src="https://github.com/shihd/blogpic/blob/master/Docker%E5%85%A5%E9%97%A8%E5%8F%8A%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/docker_ps.png?raw=true" alt=""><br>其中“container id”为容器编号，下面的操作将与它相关</p>
-<h2 id="进入运行中的容器内部执行命令"><a href="#进入运行中的容器内部执行命令" class="headerlink" title="进入运行中的容器内部执行命令"></a>进入运行中的容器内部执行命令</h2><p>有时容器的设置并不能满足我们的需要，比如，我们可能需要增加一个tomcat用户，或是配置一个数据源连接池等，需要进入容器中修改参数，下面我们就介绍下如何进入容器中。<br>在命令行模式下键入以下命令<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ docker exec -<span class="keyword">it</span> [container <span class="built_in">id</span>] /bin/bash</div></pre></td></tr></table></figure></p>
-<p>就可以进入容器内的命令行模式，其中“[container id]”在执行时替换为具体容器的container id<br><img src="https://github.com/shihd/blogpic/blob/master/Docker%E5%85%A5%E9%97%A8%E5%8F%8A%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/docker_exec.png?raw=true" alt=""></p>
-<h2 id="停止运行中的容器"><a href="#停止运行中的容器" class="headerlink" title="停止运行中的容器"></a>停止运行中的容器</h2><p>在命令行模式下键入以下命令<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ docker <span class="keyword">stop</span> [<span class="keyword">container</span> <span class="keyword">id</span>]</div></pre></td></tr></table></figure></p>
-<p>其中“[container id]”在执行时替换为具体容器的“container id”</p>
-<h2 id="查看停止状态的容器"><a href="#查看停止状态的容器" class="headerlink" title="查看停止状态的容器"></a>查看停止状态的容器</h2><p>在命令行模式下键入以下命令<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ docker ps <span class="_">-a</span></div></pre></td></tr></table></figure></p>
-<h2 id="启动停止状态的容器"><a href="#启动停止状态的容器" class="headerlink" title="启动停止状态的容器"></a>启动停止状态的容器</h2><p>在命令行模式下键入以下命令<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ docker <span class="keyword">start</span> [<span class="keyword">container</span> <span class="keyword">id</span>]</div></pre></td></tr></table></figure></p>
-<p>其中“[container id]”在执行时替换为具体容器的“container id”</p>
-<h2 id="删除的容器"><a href="#删除的容器" class="headerlink" title="删除的容器"></a>删除的容器</h2><p>在命令行模式下键入以下命令<br><figure class="highlight accesslog"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ docker rm <span class="string">[container id]</span></div></pre></td></tr></table></figure></p>
-<p>其中“[container id]”在执行时替换为具体容器的“container id”</p>
-<h2 id="提交容器成为新的镜像"><a href="#提交容器成为新的镜像" class="headerlink" title="提交容器成为新的镜像"></a>提交容器成为新的镜像</h2><p>在命令行模式下键入以下命令<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ docker <span class="keyword">commit</span> [<span class="keyword">container</span> <span class="keyword">id</span>] [your <span class="keyword">name</span>]/[image <span class="keyword">name</span>]:[tag]</div></pre></td></tr></table></figure></p>
-<p>其中“[container id]”在执行时替换为具体容器的“container id”<br>其中“[your name]”在执行时替换为你的名字，方便大家知道是你做的镜像<br>其中“[image name]”在执行时替换为你希望的镜像名称<br>其中“[tag]”在执行时替换为你的镜像的版本，也可以不指定<br>详细“docker commit”说明请参考<a href="https://docs.docker.com/engine/reference/commandline/commit/" target="_blank" rel="external">docker官网-文档-commit</a></p>
-<h2 id="导出镜像"><a href="#导出镜像" class="headerlink" title="导出镜像"></a>导出镜像</h2><p>在命令行模式下键入以下命令<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker save [image <span class="built_in">name</span>] &gt; [<span class="keyword">local</span> <span class="built_in">file</span> <span class="built_in">name</span>].tar</div></pre></td></tr></table></figure></p>
-<p>其中“[container id]”在执行时替换为具体镜像的名字<br>其中“[local file name]”在执行时替换为你想取的本地文件名</p>
-<h2 id="载入镜像"><a href="#载入镜像" class="headerlink" title="载入镜像"></a>载入镜像</h2><p>在命令行模式下键入以下命令<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ docker <span class="keyword">load</span> &lt; [<span class="keyword">local</span> <span class="keyword">file</span> <span class="keyword">full</span> <span class="keyword">name</span>]</div></pre></td></tr></table></figure></p>
-<p>其中“[local file full name]” 在执行时替换为本地文件名（含扩展名）</p>
+<p><strong>小孩：</strong></p>
+<ol>
+<li>户口本复印件</li>
+<li>身份证复印件（<em>我们孩子太小没有身份证，并没有提供</em>）</li>
+<li>护照原件</li>
+<li>3个月内近照照片白底2寸2张</li>
+<li>申请表原件（中文及英文一共两份）</li>
+<li>出生证明复印件</li>
+<li>在读中学以上的提供在读证明。<br>如果父母不去，则需父母写个委托书以及父母其中一人名下在银行冻结3万元3个月的银行证明原件。</li>
+</ol>
+<h2 id="材料模版"><a href="#材料模版" class="headerlink" title="材料模版"></a>材料模版</h2><h3 id="在职证明"><a href="#在职证明" class="headerlink" title="在职证明"></a>在职证明</h3><p><img src="https://github.com/shihd/blogpic/blob/master/2016%E6%96%B0%E5%8A%A0%E5%9D%A1%E7%AD%BE%E8%AF%81%E6%94%BB%E7%95%A5/%E5%9C%A8%E8%81%8C%E8%AF%81%E6%98%8E.png?raw=true" alt="在职证明"><br>下载：<a href="https://1drv.ms/w/s!AmhLBFb2th0IhWCafBMRdrI5LLED" target="_blank" rel="external">在职证明</a><br><em>备注：在职证明需要机器打印，除领导签字部分外，其余部分不能手填，否则会不通过，我老婆的在职证明就因此重新来过</em></p>
+<h3 id="在读证明"><a href="#在读证明" class="headerlink" title="在读证明"></a>在读证明</h3><p><img src="https://github.com/shihd/blogpic/blob/master/2016%E6%96%B0%E5%8A%A0%E5%9D%A1%E7%AD%BE%E8%AF%81%E6%94%BB%E7%95%A5/%E5%9C%A8%E8%AF%BB%E8%AF%81%E6%98%8E.png?raw=true" alt="在读证明"><br>下载：<a href="https://1drv.ms/w/s!AmhLBFb2th0IhV7E8etDYC9sZicW" target="_blank" rel="external">在读证明</a><br><em>备注：在读中学以上的提供在读证明</em></p>
+<h3 id="签证申请表（英文版）"><a href="#签证申请表（英文版）" class="headerlink" title="签证申请表（英文版）"></a>签证申请表（英文版）</h3><p><img src="https://github.com/shihd/blogpic/blob/master/2016%E6%96%B0%E5%8A%A0%E5%9D%A1%E7%AD%BE%E8%AF%81%E6%94%BB%E7%95%A5/%E7%AD%BE%E8%AF%81%E7%94%B3%E8%AF%B7%E8%A1%A8%EF%BC%88%E8%8B%B1%E6%96%87%E7%89%88%EF%BC%89.png?raw=true" alt="签证申请表（英文版）"><br>下载：<a href="https://1drv.ms/b/s!AmhLBFb2th0IhV8zqK66JSZkEYST" target="_blank" rel="external">签证申请表（英文版）</a></p>
+<h3 id="签证申请表（中文版）"><a href="#签证申请表（中文版）" class="headerlink" title="签证申请表（中文版）"></a>签证申请表（中文版）</h3><p><img src="https://github.com/shihd/blogpic/blob/master/2016%E6%96%B0%E5%8A%A0%E5%9D%A1%E7%AD%BE%E8%AF%81%E6%94%BB%E7%95%A5/%E7%AD%BE%E8%AF%81%E7%94%B3%E8%AF%B7%E8%A1%A8%EF%BC%88%E4%B8%AD%E6%96%87%E7%89%88%EF%BC%89.png?raw=true" alt="签证申请表（中文版）"><br><em>备注：一定要填写此表，一开始没填就没有审核通过</em></p>
 
         
         </div>
@@ -354,7 +335,7 @@
 
             
     
-        <a href="http://shihd.github.io/2016/11/03/技术资料——Docker入门及基础操作/#comments" class="article-comment-link ds-thread-count" data-thread-key="http://shihd.github.io/2016/11/03/技术资料——Docker入门及基础操作/">评论</a>
+        <a href="http://shihd.github.io/2016/12/16/旅游度假——2016新加坡签证攻略/#comments" class="article-comment-link ds-thread-count" data-thread-key="http://shihd.github.io/2016/12/16/旅游度假——2016新加坡签证攻略/">评论</a>
     
 
         </footer>
@@ -363,15 +344,11 @@
         
 <nav id="article-nav">
     
-        <a href="/2016/11/08/技术资料——Maven入门及基础使用介绍/" id="article-nav-newer" class="article-nav-link-wrap">
-            <strong class="article-nav-caption">上一篇</strong>
-            <div class="article-nav-title">
-                
-                    技术资料——Maven入门及基础使用介绍
-                
-            </div>
-        </a>
     
+        <a href="/2016/11/08/技术资料——Maven入门及基础使用介绍/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">技术资料——Maven入门及基础使用介绍</div>
+        </a>
     
 </nav>
 
@@ -384,7 +361,7 @@
     <section id="comments">
     
         
-    <div class="ds-thread" data-thread-key="2016/11/03/技术资料——Docker入门及基础操作/" data-title="技术资料——Docker入门及基础操作" data-url="http://shihd.github.io/2016/11/03/技术资料——Docker入门及基础操作/"></div>
+    <div class="ds-thread" data-thread-key="2016/12/16/旅游度假——2016新加坡签证攻略/" data-title="2016新加坡签证攻略" data-url="http://shihd.github.io/2016/12/16/旅游度假——2016新加坡签证攻略/"></div>
     <style>
         #ds-thread #ds-reset .ds-textarea-wrapper {
             background: none;

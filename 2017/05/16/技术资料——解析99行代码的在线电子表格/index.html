@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    
+    <title>技术资料————解析99行代码的在线电子表格 | Explorer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="解析99行代码的在线电子表格（Web Spreadsheet in 99 lines)序言随着浏览器运行性能及前端技术的日新月异，对于使用在线表格做报表已经成为时下主流趋势，而在线电子表格也层出不穷，如Google的SpreadSheet等，由于公司报表类产品中需要使用在线电子表格，并且要在基本的电子表格控件上增加许多额外与业务相关的扩展，因此在咨询及使用过一些通用工具后决定自己造轮子。造轮子之前">
+<meta property="og:type" content="article">
+<meta property="og:title" content="技术资料————解析99行代码的在线电子表格">
+<meta property="og:url" content="http://shihd.github.io/2017/05/16/技术资料——解析99行代码的在线电子表格/index.html">
+<meta property="og:site_name" content="Explorer">
+<meta property="og:description" content="解析99行代码的在线电子表格（Web Spreadsheet in 99 lines)序言随着浏览器运行性能及前端技术的日新月异，对于使用在线表格做报表已经成为时下主流趋势，而在线电子表格也层出不穷，如Google的SpreadSheet等，由于公司报表类产品中需要使用在线电子表格，并且要在基本的电子表格控件上增加许多额外与业务相关的扩展，因此在咨询及使用过一些通用工具后决定自己造轮子。造轮子之前">
+<meta property="og:image" content="http://omunsjl7p.bkt.clouddn.com/99SpreadSheetIndex.PNG">
+<meta property="og:image" content="http://omunsjl7p.bkt.clouddn.com/99SpreadSheetTable.PNG">
+<meta property="og:image" content="http://omunsjl7p.bkt.clouddn.com/99SpreadSheetCaculate.PNG">
+<meta property="og:updated_time" content="2017-05-16T02:38:11.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="技术资料————解析99行代码的在线电子表格">
+<meta name="twitter:description" content="解析99行代码的在线电子表格（Web Spreadsheet in 99 lines)序言随着浏览器运行性能及前端技术的日新月异，对于使用在线表格做报表已经成为时下主流趋势，而在线电子表格也层出不穷，如Google的SpreadSheet等，由于公司报表类产品中需要使用在线电子表格，并且要在基本的电子表格控件上增加许多额外与业务相关的扩展，因此在咨询及使用过一些通用工具后决定自己造轮子。造轮子之前">
+<meta name="twitter:image" content="http://omunsjl7p.bkt.clouddn.com/99SpreadSheetIndex.PNG">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="Explorer" type="application/atom+xml" />
+    
+
+    
+        <link rel="icon" href="/images/logo.ico" />
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+
+
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">Explorer</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/.">Home</a>
+                
+                    <a class="main-nav-link" href="/categories">Categories</a>
+                
+                    <a class="main-nav-link" href="/tags">Tags</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/css/images/avatar.jpg" />
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/.">Home</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">Categories</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">Tags</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="/css/images/avatar.jpg" />
+            <h2 id="name">Shihd</h2>
+            <h3 id="title">Web Developer &amp; Designer</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>Nanjing, China</span>
+            <a id="follow" target="_blank" href="https://github.com/shihd/">关注我</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                5
+                <span>文章</span>
+            </div>
+            <div class="article-info-block">
+                3
+                <span>标签</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+                        <a href="http://github.com/shihd" target="_blank" title="github" class=tooltip>
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="http://weibo.com/magicshd" target="_blank" title="weibo" class=tooltip>
+                            <i class="fa fa-weibo"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/atom.xml" target="_blank" title="rss" class=tooltip>
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            <section id="main"><article id="post-技术资料——解析99行代码的在线电子表格" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            技术资料————解析99行代码的在线电子表格
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2017/05/16/技术资料——解析99行代码的在线电子表格/">
+            <time datetime="2017-05-16T02:36:14.000Z" itemprop="datePublished">2017-05-16</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/技术资料/">技术资料</a>
+    </div>
+
+                        
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <h1 id="解析99行代码的在线电子表格（Web-Spreadsheet-in-99-lines"><a href="#解析99行代码的在线电子表格（Web-Spreadsheet-in-99-lines" class="headerlink" title="解析99行代码的在线电子表格（Web Spreadsheet in 99 lines)"></a>解析99行代码的在线电子表格（Web Spreadsheet in 99 lines)</h1><h2 id="序言"><a href="#序言" class="headerlink" title="序言"></a>序言</h2><p>随着浏览器运行性能及前端技术的日新月异，对于使用在线表格做报表已经成为时下主流趋势，而在线电子表格也层出不穷，如Google的SpreadSheet等，由于公司报表类产品中需要使用在线电子表格，并且要在基本的电子表格控件上增加许多额外与业务相关的扩展，因此在咨询及使用过一些通用工具后决定自己造轮子。造轮子之前先学习前人的经验，如何设计在线电子表格。为了入门我们先选择了本文将介绍的这个99行代码完成的在线电子表格。</p>
+<h2 id="99行代码的电子表格简介"><a href="#99行代码的电子表格简介" class="headerlink" title="99行代码的电子表格简介"></a>99行代码的电子表格简介</h2><ul>
+<li><strong>作者</strong>：audreyt</li>
+<li><strong>源码地址：</strong> <a href="http://jsfiddle.net/audreyt/LtDyP/" target="_blank" rel="external">http://jsfiddle.net/audreyt/LtDyP/</a></li>
+<li><strong>使用技术：</strong> HTML5+CSS3+AngularJS1.x</li>
+<li><strong>主界面截图:</strong> <img src="http://omunsjl7p.bkt.clouddn.com/99SpreadSheetIndex.PNG" alt=""><a id="more"></a>
+<h2 id="绘制表格的方法"><a href="#绘制表格的方法" class="headerlink" title="绘制表格的方法"></a>绘制表格的方法</h2><strong>1 定义行数组（<code>Rows</code>）与列数组（<code>Cols</code>）</strong><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$scope.Cols = [], $scope.Rows = [];</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>2 初始化数组</strong></p>
+<ul>
+<li>将列数组（<code>Cols</code>）初始化为<code>[&#39;A&#39;,&#39;B&#39;,&#39;C&#39;,&#39;D&#39;,&#39;E&#39;,&#39;F&#39;,&#39;G&#39;,&#39;H&#39;]</code></li>
+<li><p>将行数组（<code>Rows</code>）初始化为<code>[1,2,3,4,...,18,19,20]</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">makeRange($scope.Cols, <span class="string">'A'</span>, <span class="string">'H'</span>);</div><div class="line">makeRange($scope.Rows, <span class="number">1</span>, <span class="number">20</span>);</div></pre></td></tr></table></figure>
+</li>
+<li><p>其中<code>makeRange(array, cur, end)</code>函数的作用就是根据<code>cur</code>至<code>end</code>之间的范围初始化给<code>array</code>数组，源码如下：</p>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">makeRange</span>(<span class="params">array, cur, end</span>) </span>&#123;</div><div class="line">  <span class="keyword">while</span> (cur &lt;= end) &#123;</div><div class="line">    array.push(cur);</div><div class="line">    <span class="comment">// If it’s a number, increase it by one; otherwise move to next letter</span></div><div class="line">    cur = (<span class="built_in">isNaN</span>( cur ) ? <span class="built_in">String</span>.fromCharCode(cur.charCodeAt()+<span class="number">1</span> ) : cur+<span class="number">1</span>);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>3 绑定页面元素</strong></p>
+<ul>
+<li><p>利用AngularJS的双向数据绑定特性，将Javascript变量与页面元素进行绑定</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">table</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">tr</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">th</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">ng-click</span>=<span class="string">"reset();calc()"</span>&gt;</span>↻<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">th</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">th</span> <span class="attr">ng-repeat</span>=<span class="string">"col in Cols"</span>&gt;</span>&#123;&#123; col &#125;&#125;<span class="tag">&lt;/<span class="name">th</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">tr</span> <span class="attr">ng-repeat</span>=<span class="string">"row in Rows"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">th</span>&gt;</span>&#123;&#123; row &#125;&#125;<span class="tag">&lt;/<span class="name">th</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">td</span> <span class="attr">ng-repeat</span>=<span class="string">"col in Cols"</span> <span class="attr">ng-class</span>=<span class="string">"&#123; formula: ( '=' === sheet[col+row][0] ) &#125;"</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">id</span>=<span class="string">"&#123;&#123; col+row &#125;&#125;"</span> <span class="attr">ng-model</span>=<span class="string">"sheet[col+row]"</span> <span class="attr">ng-change</span>=<span class="string">"calc()"</span> <span class="attr">ng-model-options</span>=<span class="string">"&#123; debounce: 200 &#125;"</span> <span class="attr">ng-keydown</span>=<span class="string">"keydown( $event, col, row )"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">table</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>通过该HTML代码可以了解，其实表格是通过<code>&lt;table&gt;</code>标签实现的，其中的单元格就是<code>&lt;input&gt;</code>文本框，通过行列的循环（<code>ng-repeat</code>）绘制出一张电子表格。</p>
+<p><img src="http://omunsjl7p.bkt.clouddn.com/99SpreadSheetTable.PNG" alt=""></p>
+</li>
+<li><p>列头为表格第一行，列头第一个元素是一个刷新按钮，其余通过循环(<code>ng-repeat</code>)列数组（<code>Cols</code>）绘制，并将数组元素值作为元素显示内容</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">tr</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">th</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">ng-click</span>=<span class="string">"reset();calc()"</span>&gt;</span>↻<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">th</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">th</span> <span class="attr">ng-repeat</span>=<span class="string">"col in Cols"</span>&gt;</span>&#123;&#123; col &#125;&#125;<span class="tag">&lt;/<span class="name">th</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>第二行开始绘制表格内单元格，首先按行数组（<code>Rows</code>）进行循环(<code>ng-repeat</code>)，然后在单个行循环体内，第一个列作为行头，显示行数组的值作为行号，其余通过循环(<code>ng-repeat</code>)列数组（<code>Cols</code>）并插入<code>&lt;input&gt;</code>文本框，并将列号加行号的组合字符串赋值给该单元格ID属性</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">tr</span> <span class="attr">ng-repeat</span>=<span class="string">"row in Rows"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">th</span>&gt;</span>&#123;&#123; row &#125;&#125;<span class="tag">&lt;/<span class="name">th</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">td</span> <span class="attr">ng-repeat</span>=<span class="string">"col in Cols"</span> <span class="attr">ng-class</span>=<span class="string">"&#123; formula: ( '=' === sheet[col+row][0] ) &#125;"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">id</span>=<span class="string">"&#123;&#123; col+row &#125;&#125;"</span> <span class="attr">ng-model</span>=<span class="string">"sheet[col+row]"</span> <span class="attr">ng-change</span>=<span class="string">"calc()"</span> <span class="attr">ng-model-options</span>=<span class="string">"&#123; debounce: 200 &#125;"</span> <span class="attr">ng-keydown</span>=<span class="string">"keydown( $event, col, row )"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>如此，一张电子表格就绘制完成</p>
+<h2 id="单元格添加键盘事件"><a href="#单元格添加键盘事件" class="headerlink" title="单元格添加键盘事件"></a>单元格添加键盘事件</h2><ul>
+<li><p>HTML中<code>&lt;input&gt;</code>标签上声明键盘按下事件（<code>ng-keydown</code>）</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">id</span>=<span class="string">"&#123;&#123; col+row &#125;&#125;"</span> <span class="attr">ng-model</span>=<span class="string">"sheet[col+row]"</span> <span class="attr">ng-change</span>=<span class="string">"calc()"</span> <span class="attr">ng-model-options</span>=<span class="string">"&#123; debounce: 200 &#125;"</span> <span class="attr">ng-keydown</span>=<span class="string">"keydown( $event, col, row )"</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>JS中实现<code>keydown( $event, col, row )</code>方法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// UP(38) and DOWN(40)/ENTER(13) move focus to the row above (-1) and below (+1).</span></div><div class="line">$scope.keydown = <span class="function"><span class="keyword">function</span>(<span class="params">event, col, row</span>) </span>&#123;  </div><div class="line">  <span class="keyword">switch</span>(event.which) &#123;</div><div class="line">    <span class="keyword">case</span> <span class="number">38</span>: <span class="keyword">case</span> <span class="number">40</span>: <span class="keyword">case</span> <span class="number">13</span>: $timeout( <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">      <span class="keyword">var</span> direction = (event.which === <span class="number">38</span>) ? <span class="number">-1</span> : +<span class="number">1</span>;</div><div class="line">      <span class="keyword">var</span> cell = <span class="built_in">document</span>.querySelector( <span class="string">'#'</span> + col + (row + direction) );</div><div class="line">      <span class="keyword">if</span> (cell) &#123;</div><div class="line">        cell.focus();</div><div class="line">      &#125;</div><div class="line">    &#125; );</div><div class="line">  &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>如果当键盘按下“上”键（键值：38），则根据单元格ID属性找到上方第一个一个单元格，并使其成为焦点（focus）；如果当键盘按下“下”键（键值：40）或“回车”键（键值：13），则根据单元格ID属性找到下方一个单元格，并使其成为焦点（focus）。</p>
+<h2 id="表格的数值存储"><a href="#表格的数值存储" class="headerlink" title="表格的数值存储"></a>表格的数值存储</h2><ul>
+<li><p>在Javascript代码中声明<code>sheet</code>对象</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Restore the previous .sheet</span></div><div class="line">$scope.sheet = angular.fromJson( localStorage.getItem( <span class="string">''</span> ) );</div></pre></td></tr></table></figure>
+</li>
+<li><p>在HTML中<code>&lt;input&gt;</code>文本框标签内绑定（<code>ng-model</code>）<code>sheet</code>变量</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">id</span>=<span class="string">"&#123;&#123; col+row &#125;&#125;"</span> <span class="attr">ng-model</span>=<span class="string">"sheet[col+row]"</span> <span class="attr">ng-change</span>=<span class="string">"calc()"</span> <span class="attr">ng-model-options</span>=<span class="string">"&#123; debounce: 200 &#125;"</span> <span class="attr">ng-keydown</span>=<span class="string">"keydown( $event, col, row )"</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><code>sheet</code>对象中存储形式为键值对，如<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$scope.sheet = &#123; <span class="attr">B1</span>: <span class="number">1874</span>, <span class="attr">A2</span>: <span class="string">'+'</span>, <span class="attr">B2</span>: <span class="number">2046</span>, <span class="attr">A3</span>: <span class="string">'⇒'</span>, <span class="attr">B3</span>: <span class="string">'=B1+B2'</span> &#125;;</div></pre></td></tr></table></figure></p>
+<p>其中键为单元格ID属性，即行+列组合的字符串，值为单元格值。</p>
+<h2 id="表格的运算过程"><a href="#表格的运算过程" class="headerlink" title="表格的运算过程"></a>表格的运算过程</h2><ul>
+<li><p>表格计算通过Web Workers开启计算线程完成</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$scope.worker = <span class="keyword">new</span> Worker(<span class="string">"/echo/js/?js="</span>+<span class="built_in">encodeURIComponent</span>(<span class="string">"("</span> + WorkerJS.toString() + <span class="string">")()"</span>));</div></pre></td></tr></table></figure>
+</li>
+<li><p>具体计算方法写在<code>WorkerJS()</code>函数内</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Worker.js</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">WorkerJS</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> sheet, errs, vals;</div><div class="line">  self.onmessage = <span class="function"><span class="keyword">function</span>(<span class="params">message</span>) </span>&#123;</div><div class="line">    sheet = message.data, errs = &#123;&#125;, vals = &#123;&#125;;</div><div class="line"></div><div class="line">    <span class="built_in">Object</span>.getOwnPropertyNames(sheet || &#123;&#125;).forEach(<span class="function"><span class="keyword">function</span>(<span class="params">coord</span>) </span>&#123;</div><div class="line">      <span class="comment">// Four variable names pointing to the same coordinate: A1, a1, $A1, $a1</span></div><div class="line">      [ <span class="string">''</span>, <span class="string">'$'</span> ].forEach(<span class="function"><span class="keyword">function</span>(<span class="params">p</span>) </span>&#123; [ coord, coord.toLowerCase() ].forEach(<span class="function"><span class="keyword">function</span>(<span class="params">c</span>)</span>&#123;</div><div class="line">        <span class="keyword">var</span> name = p+c;</div><div class="line"></div><div class="line">        <span class="comment">// Worker is reused across computations, so only define each variable once</span></div><div class="line">        <span class="keyword">if</span> ((<span class="built_in">Object</span>.getOwnPropertyDescriptor( self, name ) || &#123;&#125;).get) &#123; <span class="keyword">return</span>; &#125;</div><div class="line"></div><div class="line">        <span class="comment">// Define self['A1'], which is the same thing as the global variable A1</span></div><div class="line">        <span class="built_in">Object</span>.defineProperty( self, name, &#123; <span class="attr">get</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">          <span class="keyword">if</span> (coord <span class="keyword">in</span> vals) &#123; <span class="keyword">return</span> vals[coord]; &#125;</div><div class="line">          vals[coord] = <span class="literal">NaN</span>;</div><div class="line"></div><div class="line">          <span class="comment">// Turn numeric strings into numbers, so =A1+C1 works when both are numbers</span></div><div class="line">          <span class="keyword">var</span> x = +sheet[coord];</div><div class="line">          <span class="keyword">if</span> (sheet[coord] !== x.toString()) &#123; x = sheet[coord]; &#125;</div><div class="line"></div><div class="line">          <span class="comment">// Evaluate formula cells that begin with =</span></div><div class="line">          <span class="keyword">try</span> &#123; vals[coord] = ((<span class="string">'='</span> === x[<span class="number">0</span>]) ? <span class="built_in">eval</span>.call( <span class="literal">null</span>, x.slice( <span class="number">1</span> ) ) : x);</div><div class="line">          &#125; <span class="keyword">catch</span> (e) &#123;</div><div class="line">            <span class="keyword">var</span> match = <span class="regexp">/\$?[A-Za-z]+[1-9][0-9]*\b/</span>.exec( e );</div><div class="line">            <span class="keyword">if</span> (match &amp;&amp; !( match[<span class="number">0</span>] <span class="keyword">in</span> self )) &#123;</div><div class="line">              <span class="comment">// The formula refers to a uninitialized cell; set it to 0 and retry</span></div><div class="line">              self[match[<span class="number">0</span>]] = <span class="number">0</span>;</div><div class="line">              <span class="keyword">delete</span> vals[coord];</div><div class="line">              <span class="keyword">return</span> self[coord];</div><div class="line">            &#125;</div><div class="line">            <span class="comment">// Otherwise, stringify the caught exception in the errs object</span></div><div class="line">            errs[coord] = e.toString();</div><div class="line">          &#125;</div><div class="line">          <span class="comment">// Turn vals[coord] into a string if it's not a number or boolean</span></div><div class="line">          <span class="keyword">switch</span> (<span class="keyword">typeof</span> vals[coord]) &#123; <span class="keyword">case</span> <span class="string">'function'</span>: <span class="keyword">case</span> <span class="string">'object'</span>: vals[coord]+=<span class="string">''</span>; &#125;</div><div class="line">          <span class="keyword">return</span> vals[coord];</div><div class="line">        &#125; &#125; );</div><div class="line">      &#125;); &#125;);</div><div class="line">    &#125;);</div><div class="line"></div><div class="line">    <span class="comment">// For each coordinate in the sheet, call the property getter defined above</span></div><div class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> coord <span class="keyword">in</span> sheet) &#123; self[coord]; &#125;</div><div class="line">    postMessage([ errs, vals ]);</div><div class="line">  &#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>计算流程为<br><img src="http://omunsjl7p.bkt.clouddn.com/99SpreadSheetCaculate.PNG" alt=""></p>
+</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>经过分析，99行实现的该电子表格虽然功能简单，但是基本的表格绘制及运算实现了，为我们未来设计电子表格结构提供了重要的参考价值。</p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+    <div class="a2a_kit a2a_default_style">
+    <a class="a2a_dd" href="https://www.addtoany.com/share">Share</a>
+    <span class="a2a_divider"></span>
+    <a class="a2a_button_facebook"></a>
+    <a class="a2a_button_twitter"></a>
+    <a class="a2a_button_google_plus"></a>
+    <a class="a2a_button_pinterest"></a>
+    <a class="a2a_button_tumblr"></a>
+</div>
+<script type="text/javascript" src="//static.addtoany.com/menu/page.js"></script>
+<style>
+    .a2a_menu {
+        border-radius: 4px;
+    }
+    .a2a_menu a {
+        margin: 2px 0;
+        font-size: 14px;
+        line-height: 16px;
+        border-radius: 4px;
+        color: inherit !important;
+        font-family: 'Microsoft Yahei';
+    }
+    #a2apage_dropdown {
+        margin: 10px 0;
+    }
+    .a2a_mini_services {
+        padding: 10px;
+    }
+    a.a2a_i,
+    i.a2a_i {
+        width: 122px;
+        line-height: 16px;
+    }
+    a.a2a_i .a2a_svg,
+    a.a2a_more .a2a_svg {
+        width: 16px;
+        height: 16px;
+        line-height: 16px;
+        vertical-align: top;
+        background-size: 16px;
+    }
+    a.a2a_i {
+        border: none !important;
+    }
+    a.a2a_menu_show_more_less {
+        margin: 0;
+        padding: 10px 0;
+        line-height: 16px;
+    }
+    .a2a_mini_services:after{content:".";display:block;height:0;clear:both;visibility:hidden}
+    .a2a_mini_services{*+height:1%;}
+</style>
+
+</div>
+
+            
+    
+        <a href="http://shihd.github.io/2017/05/16/技术资料——解析99行代码的在线电子表格/#comments" class="article-comment-link ds-thread-count" data-thread-key="http://shihd.github.io/2017/05/16/技术资料——解析99行代码的在线电子表格/">评论</a>
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2017/05/16/工作资料-报表系统业务需求/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">工作资料-报表系统业务需求</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    <section id="comments">
+    
+        
+    <div class="ds-thread" data-thread-key="2017/05/16/技术资料——解析99行代码的在线电子表格/" data-title="技术资料————解析99行代码的在线电子表格" data-url="http://shihd.github.io/2017/05/16/技术资料——解析99行代码的在线电子表格/"></div>
+    <style>
+        #ds-thread #ds-reset .ds-textarea-wrapper {
+            background: none;
+        }
+        #ds-reset .ds-avatar img {
+            box-shadow: none;
+        }
+        #ds-reset .ds-gradient-bg {
+            background: #f7f7f7;
+        }
+        #ds-thread #ds-reset li.ds-tab a {
+            border-radius: 3px;
+        }
+        #ds-thread #ds-reset .ds-post-button {
+            color: white;
+            border: none;
+            box-shadow: none;
+            background: #d32;
+            text-shadow: none;
+            font-weight: normal;
+            font-family: 'Microsoft Yahei';
+        }
+        #ds-thread #ds-reset .ds-post-button:hover {
+            color: white;
+            background: #DE594C;
+        }
+        #ds-thread #ds-reset .ds-post-button:active {
+            background: #d32;
+        }
+        #ds-smilies-tooltip ul.ds-smilies-tabs li a.ds-current {
+            color: white;
+            background: #d32;
+            box-shadow: none;
+            text-shadow: none;
+            font-weight: normal;
+        }
+    </style>
+
+    
+    </section>
+
+</section>
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">最新文章</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/05/16/技术资料——解析99行代码的在线电子表格/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/技术资料/">技术资料</a></p>
+                            <p class="item-title"><a href="/2017/05/16/技术资料——解析99行代码的在线电子表格/" class="title">技术资料————解析99行代码的在线电子表格</a></p>
+                            <p class="item-date"><time datetime="2017-05-16T02:36:14.000Z" itemprop="datePublished">2017-05-16</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/05/16/工作资料-报表系统业务需求/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/工作资料/">工作资料</a></p>
+                            <p class="item-title"><a href="/2017/05/16/工作资料-报表系统业务需求/" class="title">工作资料-报表系统业务需求</a></p>
+                            <p class="item-date"><time datetime="2017-05-16T02:23:16.000Z" itemprop="datePublished">2017-05-16</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/12/16/旅游度假——2016新加坡签证攻略/" class="thumbnail">
+    
+    
+        <span style="background-image:url(data:image/jpeg;base64,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)" alt="2016新加坡签证攻略" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/旅游度假/">旅游度假</a></p>
+                            <p class="item-title"><a href="/2016/12/16/旅游度假——2016新加坡签证攻略/" class="title">2016新加坡签证攻略</a></p>
+                            <p class="item-date"><time datetime="2016-12-16T08:08:03.000Z" itemprop="datePublished">2016-12-16</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/11/08/技术资料——Maven入门及基础使用介绍/" class="thumbnail">
+    
+    
+        <span style="background-image:url(https://maven.apache.org/images/maven-logo-black-on-white.png)" alt="技术资料——Maven入门及基础使用介绍" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/技术资料/">技术资料</a></p>
+                            <p class="item-title"><a href="/2016/11/08/技术资料——Maven入门及基础使用介绍/" class="title">技术资料——Maven入门及基础使用介绍</a></p>
+                            <p class="item-date"><time datetime="2016-11-08T08:59:38.000Z" itemprop="datePublished">2016-11-08</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/11/03/技术资料——Docker入门及基础操作/" class="thumbnail">
+    
+    
+        <span style="background-image:url(https://blog.birkhoff.me/content/images/2016/07/automated-deploying-containers-after-push.png)" alt="技术资料——Docker入门及基础操作" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/技术资料/">技术资料</a></p>
+                            <p class="item-title"><a href="/2016/11/03/技术资料——Docker入门及基础操作/" class="title">技术资料——Docker入门及基础操作</a></p>
+                            <p class="item-date"><time datetime="2016-11-03T03:27:10.000Z" itemprop="datePublished">2016-11-03</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">分类</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/工作资料/">工作资料</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术资料/">技术资料</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/旅游度假/">旅游度假</a><span class="category-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">归档</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">五月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Maven/">Maven</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/新加坡-签证/">新加坡 签证</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Maven/" style="font-size: 10px;">Maven</a> <a href="/tags/新加坡-签证/" style="font-size: 10px;">新加坡 签证</a>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">链接</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2017 Shihd<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
+        </div>
+    </div>
+</footer>
+        
+    
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'explorer'};
+    (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
